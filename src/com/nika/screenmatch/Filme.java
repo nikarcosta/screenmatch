@@ -1,3 +1,5 @@
+package com.nika.screenmatch;
+
 public class Filme {
     private String nome;
     private int anoDeLancamento;
@@ -22,6 +24,10 @@ public class Filme {
         return incluidoNoPlano;
     }
 
+    public int getTotalDeAvaliacoes() {
+        return totalDeAvaliacoes;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -38,19 +44,19 @@ public class Filme {
         this.incluidoNoPlano = incluidoNoPlano;
     }
 
-    private void exibeFichaTecnica() {
+    public void exibeFichaTecnica() {
         System.out.println("Nome do filme: " +nome);
         System.out.println("Ano de lançamento: "  + anoDeLancamento);
         System.out.println("Duração em minutos: " + duracaoEmMinutos);
         System.out.println("Incluído no plano: " + incluidoNoPlano);
     }
 
-    private void avalia(int nota){
+    public void avalia(int nota){
         somaDasAvaliacoes += nota;
         totalDeAvaliacoes++;
     }
 
-    private double pegaMedia(){
+    public double pegaMedia(){
         return somaDasAvaliacoes / totalDeAvaliacoes;
     }
 }
