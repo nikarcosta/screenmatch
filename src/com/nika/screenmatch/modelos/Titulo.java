@@ -1,6 +1,6 @@
-package com.nika.screenmatch;
+package com.nika.screenmatch.modelos;
 
-public class Filme {
+public class Titulo {
     private String nome;
     private int anoDeLancamento;
     private double duracaoEmMinutos;
