@@ -3,7 +3,7 @@ package com.nika.screenmatch.modelos;
 public class Titulo {
     private String nome;
     private int anoDeLancamento;
-    private double duracaoEmMinutos;
+    private int duracaoEmMinutos;
     private boolean incluidoNoPlano;
     private int somaDasAvaliacoes;
     private int totalDeAvaliacoes;
@@ -16,7 +16,7 @@ public class Titulo {
         return anoDeLancamento;
     }
 
-    public double getDuracaoEmMinutos() {
+    public int getDuracaoEmMinutos() {
         return duracaoEmMinutos;
     }
 
@@ -36,7 +36,7 @@ public class Titulo {
         this.anoDeLancamento = anoDeLancamento;
     }
 
-    public void setDuracaoEmMinutos(double duracaoEmMinutos) {
+    public void setDuracaoEmMinutos(int duracaoEmMinutos) {
         this.duracaoEmMinutos = duracaoEmMinutos;
     }
 
