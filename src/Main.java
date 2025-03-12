@@ -1,3 +1,5 @@
+import com.nika.screenmatch.calculos.FiltroRecomendacao;
+import com.nika.screenmatch.modelos.Episodio;
 import com.nika.screenmatch.modelos.Filme;
 import com.nika.screenmatch.modelos.Serie;
 
@@ -25,6 +27,14 @@ public class Main {
         serie.exibeFichaTecnica();
 
         System.out.println("Tempo total da série: " + serie.getDuracaoEmMinutos());
+
+        Episodio primeiro = new Episodio();
+        primeiro.setNumero(1);
+        primeiro.setSerie(serie);
+        primeiro.setTotalVisualizacoes(300);
+
+        FiltroRecomendacao filtro = new FiltroRecomendacao();
+        filtro.filtrar(primeiro);
 
     }
 }
