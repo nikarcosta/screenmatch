@@ -35,5 +35,6 @@ public class Main {
 
         FiltroRecomendacao filtro = new FiltroRecomendacao();
         filtro.filtrar(primeiro);
+
     }
 }
