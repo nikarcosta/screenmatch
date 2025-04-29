@@ -1,71 +1,44 @@
+import com.google.gson.Gson;
 import com.nika.screenmatch.calculos.FiltroRecomendacao;
 import com.nika.screenmatch.modelos.Episodio;
 import com.nika.screenmatch.modelos.Filme;
 import com.nika.screenmatch.modelos.Serie;
 import com.nika.screenmatch.modelos.Titulo;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        Filme filme = new Filme("Her", 2014);
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        filme.setDuracaoEmMinutos(120);
-        filme.setIncluidoNoPlano(true);
+        Scanner leitura = new Scanner(System.in);
+        System.out.println("Digite o nome do filme para busca: ");
+        var busca = leitura.nextLine();
 
-        filme.exibeFichaTecnica();
+        String chave = "";
+        String endereco = "https://www.omdbapi.com/?t=" +busca + "&apikey=" + chave;
 
-        filme.avalia(10);
 
-        Serie serie = new Serie("Friends", 1994);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endereco))
+                .build();
+        HttpResponse<String> response = client
+                .send(request, HttpResponse.BodyHandlers.ofString());
 
-        serie.setTemporadas(10);
-        serie.setEpisodiosPorTemporada(20);
-        serie.setIncluidoNoPlano(true);
-        serie.setMinutosPorEpisodio(20);
+        String json = response.body();
+        System.out.println(json);
 
-        serie.exibeFichaTecnica();
-        serie.avalia(10);
+        Gson gson = new Gson();
+        Titulo meuTitulo = gson.fromJson(json, Titulo.class);
+        System.out.println("Título: " + meuTitulo.getNome());
 
-        System.out.println("Tempo total da série: " + serie.getDuracaoEmMinutos());
-
-        Episodio primeiro = new Episodio();
-        primeiro.setNumero(1);
-        primeiro.setSerie(serie);
-        primeiro.setTotalVisualizacoes(300);
-
-        FiltroRecomendacao filtro = new FiltroRecomendacao();
-        filtro.filtrar(primeiro);
-
-        //ArrayList<Filme> listaDeFilmes = new ArrayList<>();
-
-        List<Titulo> lista = new LinkedList<>();
-        lista.add(filme);
-        lista.add(serie);
-
-        for (Titulo item : lista){
-            System.out.println("Nome: " + item.getNome());
-            if (item instanceof Filme movie && movie.getClassificacao() > 2){
-                System.out.println("Classificação: " + movie.getClassificacao());
-            }
-        }
-
-        ArrayList<String> buscaPorArtista = new ArrayList<>();
-        buscaPorArtista.add("Adam Sandler");
-        buscaPorArtista.add("Paulo");
-        buscaPorArtista.add("Jacqueline");
-        Collections.sort(buscaPorArtista);
-        System.out.println(buscaPorArtista);
-
-        System.out.println("Lista de titulos ordenados");
-        Collections.sort(lista);
-        System.out.println(lista);
-
-        lista.sort(Comparator.comparing(Titulo::getAnoDeLancamento));
-        System.out.println("Ordenando por ano");
-        System.out.println(lista);
 
     }
 }
