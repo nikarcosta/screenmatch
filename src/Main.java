@@ -1,9 +1,8 @@
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nika.screenmatch.calculos.FiltroRecomendacao;
-import com.nika.screenmatch.modelos.Episodio;
-import com.nika.screenmatch.modelos.Filme;
-import com.nika.screenmatch.modelos.Serie;
-import com.nika.screenmatch.modelos.Titulo;
+import com.nika.screenmatch.modelos.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,7 +20,7 @@ public class Main {
         System.out.println("Digite o nome do filme para busca: ");
         var busca = leitura.nextLine();
 
-        String chave = "";
+        String chave = "9c2bac17";
         String endereco = "https://www.omdbapi.com/?t=" +busca + "&apikey=" + chave;
 
 
@@ -35,9 +34,14 @@ public class Main {
         String json = response.body();
         System.out.println(json);
 
-        Gson gson = new Gson();
-        Titulo meuTitulo = gson.fromJson(json, Titulo.class);
-        System.out.println("Título: " + meuTitulo.getNome());
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .create();
+
+        TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
+        System.out.println(meuTituloOmdb);
+        Titulo meuTitulo = new Titulo(meuTituloOmdb);
+        System.out.println(meuTitulo);
 
 
     }
